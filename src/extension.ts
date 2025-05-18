@@ -88,7 +88,13 @@ class RailsDefinitionProvider implements vscode.DefinitionProvider {
 
     console.log(`Looking for definition of: ${fullReference}`);
 
-    // First, check if we're in a model relation or reference
+    // Check for service objects (done)
+    if (this.isServiceReference(line)) {
+      console.log("Found service reference");
+      return this.findServiceDefinition(word);
+    }
+
+    // Check if we're in a model relation or reference
     if (this.isModelReference(line)) {
       console.log("Found model reference");
       return this.findModelDefinition(word);
@@ -110,12 +116,6 @@ class RailsDefinitionProvider implements vscode.DefinitionProvider {
     if (this.isControllerReference(line)) {
       console.log("Found controller reference");
       return this.findControllerDefinition(word);
-    }
-
-    // Check for service objects
-    if (this.isServiceReference(line)) {
-      console.log("Found service reference");
-      return this.findServiceDefinition(word);
     }
 
     // Check for views
