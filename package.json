@@ -7,15 +7,26 @@
     "vscode": "^1.100.0"
   },
   "categories": [
-    "Other"
+    "Other",
+    "Programming Languages"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:ruby"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "ruby-lsp.helloWorld",
-        "title": "Hello World"
+        "command": "rails-go-to-definition.goToDefinition",
+        "title": "Rails: Go to Definition"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "rails-go-to-definition.goToDefinition",
+        "key": "ctrl+alt+g",
+        "mac": "cmd+alt+g",
+        "when": "editorTextFocus && editorLangId == ruby"
       }
     ]
   },
@@ -23,9 +34,8 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src",
-    "test": "vscode-test"
+    "pretest": "npm run compile",
+    "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
     "@types/vscode": "^1.100.0",
